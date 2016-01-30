@@ -17,6 +17,7 @@
 	</parent>
 	<modules>
 		<module>sso</module>
+		<module>eureka</module>
 		<module>authserver</module>
 	</modules>
 	<properties>
