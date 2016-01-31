@@ -13,12 +13,13 @@
 		<groupId>org.springframework.cloud</groupId>
 		<artifactId>spring-cloud-starter-parent</artifactId>
 		<version>Brixton.M4</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<modules>
 		<module>sso</module>
 		<module>eureka</module>
-		<module>authserver</module>
+		<module>resource</module>
+		<module>auth</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

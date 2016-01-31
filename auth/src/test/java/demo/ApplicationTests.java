@@ -25,7 +25,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = AuthserverApplication.class)
+@SpringApplicationConfiguration(classes = AuthApplication.class)
 @WebAppConfiguration
 @IntegrationTest("server.port:0")
 public class ApplicationTests {

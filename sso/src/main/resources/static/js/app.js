@@ -6,12 +6,12 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ])
 			$routeProvider.when('/', {
 				templateUrl : 'home.html',
 				controller : 'home'
-			}).when('/dashboard', {
+			})
+			.when('/dashboard', {
 				templateUrl : 'dashboard.html',
 				controller : 'dashboard'
 			});
-
-		})
+    })
 	.controller('navigation', function($scope, $http, $window, $route) {
 			$scope.tab = function(route) {
 				return $route.current && route === $route.current.controller;
@@ -34,13 +34,17 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ])
 			};
 		}
 	)
-	.controller('home', function() {
-}).controller('dashboard', function($scope, $resource) {
+	.controller('home', function() {})
+    .controller('dashboard', function($scope, $resource) {
+        $resource('/dashboard/message', {})
+            .get(
+                {},
+                function(data) {
+                    $scope.message = data.message;
+                },
+                function() {
+                    $scope.message = '';
+                }
+            );
 
-	$resource('/dashboard/message', {}).get({}, function(data) {
-		$scope.message = data.message;
-	}, function() {
-		$scope.message = '';
-	});
-
-});
+    });
