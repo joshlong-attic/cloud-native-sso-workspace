@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+// TODO why doesn't this play well when I add @EnableDiscoveryClient? 
 @SpringBootApplication
 @Controller
 @SessionAttributes("authorizationRequest")
