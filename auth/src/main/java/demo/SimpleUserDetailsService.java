@@ -26,7 +26,7 @@ public class SimpleUserDetailsService implements UserDetailsService {
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 
-		Arrays.asList("jlong", "lshannon", "dsyer", "sgibb")
+		Arrays.asList("dsyer", "sgibb", "jlong")
 				.stream()
 				.map(x -> new User(x, "password", grantedAuthorities))
 				.forEach(u -> this.users.put(u.getUsername(), u));
