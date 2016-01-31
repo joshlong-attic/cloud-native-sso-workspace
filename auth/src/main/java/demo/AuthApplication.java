@@ -97,17 +97,14 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 		}
 
 		@Override
-		public void configure(AuthorizationServerEndpointsConfigurer endpoints)
-				throws Exception {
-			endpoints.authenticationManager(authenticationManager).accessTokenConverter(
-					jwtAccessTokenConverter());
+		public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+			endpoints.authenticationManager(authenticationManager).accessTokenConverter(jwtAccessTokenConverter());
 		}
 
 		@Override
 		public void configure(AuthorizationServerSecurityConfigurer oauthServer)
 				throws Exception {
-			oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess(
-					"isAuthenticated()");
+			oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
 		}
 
 	}
