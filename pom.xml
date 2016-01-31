@@ -16,9 +16,10 @@
 		<relativePath/>
 	</parent>
 	<modules>
-		<module>sso</module>
+
 		<module>eureka</module>
-		<module>resource</module>
+		<module>greetings</module>
+		<module>greetings-ui</module>
 		<module>auth</module>
 	</modules>
 	<properties>

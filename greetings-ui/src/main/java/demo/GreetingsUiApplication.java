@@ -2,8 +2,6 @@ package demo;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.Collections;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -13,13 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.web.csrf.CsrfFilter;
@@ -35,10 +30,10 @@ import org.springframework.web.filter.OncePerRequestFilter;
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
-public class SsoApplication {
+public class GreetingsUiApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SsoApplication.class, args);
+		SpringApplication.run(GreetingsUiApplication.class, args);
 	}
 
 	@RestController
@@ -71,12 +66,17 @@ public class SsoApplication {
 
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
-			http.antMatcher("/dashboard/**").authorizeRequests().anyRequest()
-					.authenticated().and().csrf()
-					.csrfTokenRepository(csrfTokenRepository()).and()
-					.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
-					.logout().logoutUrl("/dashboard/logout").permitAll()
-					.logoutSuccessUrl("/");
+			http
+						.antMatcher("/greetings/**").authorizeRequests().anyRequest().authenticated()
+					.and()
+						.antMatcher( "/dashboard/**").authorizeRequests().anyRequest().authenticated()
+					.and()
+						.csrf()
+						.csrfTokenRepository(csrfTokenRepository())
+					.and()
+						.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
+					.logout()
+						.logoutUrl("/dashboard/logout").permitAll().logoutSuccessUrl("/");
 		}
 
 		private Filter csrfHeaderFilter() {

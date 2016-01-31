@@ -14,16 +14,26 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Collections;
 import java.util.Map;
 
-import static demo.ResourceApplication.*;
+import static demo.GreetingsApplication.*;
 
 @EnableDiscoveryClient
 @SpringBootApplication
-public class ResourceApplication {
+public class GreetingsApplication {
 
 	public static final String HI_MAPPING = "/hi";
 
 	public static void main(String[] args) {
-		SpringApplication.run(ResourceApplication.class, args);
+		SpringApplication.run(GreetingsApplication.class, args);
+	}
+}
+
+@RestController
+class GreetingsRestController {
+
+	@RequestMapping(method = RequestMethod.GET, value = HI_MAPPING)
+	public Map<String, String> message() {
+		return Collections.singletonMap("message",
+				String.format("Hi, world %s!", System.currentTimeMillis()));
 	}
 }
 
@@ -38,15 +48,5 @@ class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 				.antMatcher(HI_MAPPING)
 				.authorizeRequests().anyRequest().authenticated();
 		// @formatter:on
-	}
-}
-
-@RestController
-class GreetingsRestController {
-
-	@RequestMapping(method = RequestMethod.GET, value = HI_MAPPING)
-	public Map<String, String> message() {
-		return Collections.singletonMap("message",
-				String.format("Hi, world %s!", System.currentTimeMillis()));
 	}
 }
