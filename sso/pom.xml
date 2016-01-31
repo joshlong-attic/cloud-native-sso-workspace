@@ -33,9 +33,17 @@
 			<artifactId>spring-cloud-cloudfoundry-web</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-eureka</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zuul</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -50,11 +58,10 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 		</dependency>
-		<dependency>
+<!--		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<scope>test</scope>
-		</dependency>
+ 		</dependency>-->
 	</dependencies>
 
 	<properties>

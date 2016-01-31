@@ -36,7 +36,7 @@ angular.module('sso', [ 'ngRoute', 'ngResource' ])
 	)
 	.controller('home', function() {})
     .controller('dashboard', function($scope, $resource) {
-        $resource('/dashboard/message', {})
+        $resource('/resource/hi', {})
             .get(
                 {},
                 function(data) {

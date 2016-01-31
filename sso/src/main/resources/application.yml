@@ -2,6 +2,8 @@ debug: true
 server:
   port: 9999
 
+
+
 security:
   user:
     password: user
@@ -18,6 +20,11 @@ logging:
   level:
     org.springframework.security: DEBUG
     com.netflix.discovery: 'OFF'
+
+
+spring:
+  application:
+    name: sso
 
 ---
 spring:

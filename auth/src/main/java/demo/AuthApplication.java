@@ -1,12 +1,9 @@
 package demo;
 
-import java.security.KeyPair;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.ManagementServerProperties;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -28,7 +25,10 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-// TODO why doesn't this play well when I add @EnableDiscoveryClient? 
+import java.security.KeyPair;
+
+// TODO why doesn't this play well when I add @EnableDiscoveryClient?
+
 @SpringBootApplication
 @Controller
 @SessionAttributes("authorizationRequest")
@@ -53,12 +53,13 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.formLogin().loginPage("/login").permitAll().and().authorizeRequests()
+			http.formLogin()
+					.loginPage("/login").permitAll().and().authorizeRequests()
 					.anyRequest().authenticated();
 		}
 
 		@Bean
-		UserDetailsService uds() {
+		public UserDetailsService uds() {
 			return new SimpleUserDetailsService();
 		}
 
@@ -91,8 +92,8 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 			clients.inMemory()
 					.withClient("acme")
 					.secret("acmesecret")
-					.authorizedGrantTypes("authorization_code", "refresh_token",
-							"password").scopes("openid");
+					.authorizedGrantTypes("authorization_code", "refresh_token", "password")
+					.scopes("openid");
 		}
 
 		@Override

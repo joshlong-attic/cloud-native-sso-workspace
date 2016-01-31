@@ -16,6 +16,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -30,7 +32,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-
+@EnableZuulProxy
+@EnableDiscoveryClient
 @SpringBootApplication
 public class SsoApplication {
 
@@ -41,17 +44,16 @@ public class SsoApplication {
 	@RestController
 	@RequestMapping("/dashboard")
 	public static class DashboardRestController {
-
-		@RequestMapping("/message")
-		public Map<String, Object> dashboard() {
-			return Collections.<String, Object>singletonMap("message", "Yay!");
-		}
+//
+//		@RequestMapping("/message")
+//		public Map<String, Object> dashboard() {
+//			return Collections.<String, Object>singletonMap("message", "Yay!");
+//		}
 
 		@RequestMapping("/user")
 		public Principal user(Principal user) {
 			return user;
 		}
-
 	}
 
 	@Controller
@@ -61,7 +63,6 @@ public class SsoApplication {
 		public String dashboard() {
 			return "redirect:/#/";
 		}
-
 	}
 
 	@Component
@@ -84,8 +85,7 @@ public class SsoApplication {
 				protected void doFilterInternal(HttpServletRequest request,
 												HttpServletResponse response, FilterChain filterChain)
 						throws ServletException, IOException {
-					CsrfToken csrf = (CsrfToken) request
-							.getAttribute(CsrfToken.class.getName());
+					CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 					if (csrf != null) {
 						Cookie cookie = new Cookie("XSRF-TOKEN",
 								csrf.getToken());
