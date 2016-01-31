@@ -59,7 +59,7 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 		}
 
 		@Bean
-		public UserDetailsService uds() {
+		UserDetailsService uds() {
 			return new SimpleUserDetailsService();
 		}
 

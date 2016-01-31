@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Josh Long
@@ -26,8 +27,7 @@ public class SimpleUserDetailsService implements UserDetailsService {
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
 
-		Arrays.asList("dsyer", "sgibb", "jlong")
-				.stream()
+		Stream.of("dsyer", "sgibb", "pwebb", "rwinch", "rjohnson" ,"jlong")
 				.map(x -> new User(x, "password", grantedAuthorities))
 				.forEach(u -> this.users.put(u.getUsername(), u));
 

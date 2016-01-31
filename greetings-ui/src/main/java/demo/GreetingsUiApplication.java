@@ -67,16 +67,14 @@ public class GreetingsUiApplication {
 		@Override
 		public void configure(HttpSecurity http) throws Exception {
 			http
-						.antMatcher("/greetings/**").authorizeRequests().anyRequest().authenticated()
+					.antMatcher("/greetings/**").antMatcher("/dashboard/**").authorizeRequests().anyRequest().authenticated()
 					.and()
-						.antMatcher( "/dashboard/**").authorizeRequests().anyRequest().authenticated()
+					.csrf()
+					.csrfTokenRepository(csrfTokenRepository())
 					.and()
-						.csrf()
-						.csrfTokenRepository(csrfTokenRepository())
-					.and()
-						.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
+					.addFilterAfter(csrfHeaderFilter(), CsrfFilter.class)
 					.logout()
-						.logoutUrl("/dashboard/logout").permitAll().logoutSuccessUrl("/");
+					.logoutUrl("/dashboard/logout").permitAll().logoutSuccessUrl("/");
 		}
 
 		private Filter csrfHeaderFilter() {
@@ -87,8 +85,7 @@ public class GreetingsUiApplication {
 						throws ServletException, IOException {
 					CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
 					if (csrf != null) {
-						Cookie cookie = new Cookie("XSRF-TOKEN",
-								csrf.getToken());
+						Cookie cookie = new Cookie("XSRF-TOKEN", csrf.getToken());
 						cookie.setPath("/");
 						response.addCookie(cookie);
 					}
