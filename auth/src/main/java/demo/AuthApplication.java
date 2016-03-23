@@ -42,12 +42,14 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 		SpringApplication.run(AuthApplication.class, args);
 	}
 
+/*
 	@RequestMapping("/user")
 	@ResponseBody
 	Principal principal(Principal principal) {
 		return principal;
 	}
 
+*/
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
 		registry.addViewController("/login").setViewName("login");
