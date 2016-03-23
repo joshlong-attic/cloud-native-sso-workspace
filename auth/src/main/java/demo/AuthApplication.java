@@ -16,16 +16,20 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
+import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.store.JwtAccessTokenConverter;
 import org.springframework.security.oauth2.provider.token.store.KeyStoreKeyFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.security.KeyPair;
+import java.security.Principal;
 
 // TODO why doesn't this play well when I add @EnableDiscoveryClient?
 
@@ -36,6 +40,12 @@ public class AuthApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
 		SpringApplication.run(AuthApplication.class, args);
+	}
+
+	@RequestMapping("/user")
+	@ResponseBody
+	Principal principal(Principal principal) {
+		return principal;
 	}
 
 	@Override

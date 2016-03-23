@@ -22,7 +22,8 @@ public class SimpleUserDetailsService implements UserDetailsService {
 	private final Map<String, User> users = new ConcurrentHashMap<>();
 
 	public SimpleUserDetailsService() {
-		List<GrantedAuthority> grantedAuthorities = Arrays.asList("openid", "read", "write")
+		List<GrantedAuthority> grantedAuthorities =
+			Arrays.asList("openid", "read", "write")
 				.stream()
 				.map(SimpleGrantedAuthority::new)
 				.collect(Collectors.toList());
